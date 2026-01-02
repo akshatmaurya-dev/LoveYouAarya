@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hey You 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #ffd6e8, #e0c3fc);
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 2.5rem 2rem 3rem;
+      width: 90%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      animation: popIn 0.8s ease;
+      display: none;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    h1 { margin-top: 0; font-size: 2rem; color: #ff5fa2; }
+    p { color: #555; font-size: 1.05rem; line-height: 1.6; }
+
+    .heart { font-size: 2.5rem; animation: beat 1.4s infinite; margin-bottom: 1rem; }
+    @keyframes beat { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
+
+    button {
+      margin-top: 1.5rem;
+      background: linear-gradient(135deg, #ff5fa2, #ff8fd4);
+      border: none;
+      border-radius: 999px;
+      padding: 0.9rem 1.6rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(255,95,162,0.4);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:active { transform: scale(0.94); box-shadow: 0 6px 14px rgba(255,95,162,0.35); }
+
+    button::after {
+      content: '✨';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    button:hover::after { transform: translate(-50%, -50%) scale(1.4); opacity: 1; }
+
+    .hidden { display: none; }
+    .reply { margin-top: 1.5rem; font-size: 1.1rem; color: #ff5fa2; font-weight: 600; }
+
+    .float-heart { position: absolute; bottom: -40px; font-size: 1.5rem; animation: floatUp 6s linear infinite; }
+    @keyframes floatUp { from{transform:translateY(0);opacity:0} to{transform:translateY(-110vh);opacity:0} }
+  </style>
+</head>
+<body>
+
+<!-- INTRO SCREEN -->
+<div id="intro" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ffd6e8,#e0c3fc);z-index:10;overflow:hidden;pointer-events:none;">
+  <canvas id="confetti" style="position:absolute;inset:0;pointer-events:none;"></canvas>
+  <div style="background:white;border-radius:28px;padding:3rem 2.5rem;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);animation:popIn 0.8s ease;max-width:420px;width:90%;position:relative;z-index:2;pointer-events:auto;">
+    <h1 style="font-size:2.4rem;">Happy New Year 🎆✨</h1>
+    <div style="font-size:1.6rem;animation:beat 1.4s infinite;">💖</div>
+    <p style="font-size:1.3rem;">Aarya ✨</p>
+    <p>Wishing you endless smiles, soft moments, and lots of beautiful memories this year 💕</p>
+    <button id="enterBtn">Tap to continue 💖</button>
+  </div>
+</div>
+
+<!-- MAIN CARD -->
+<div class="card" id="mainCard">
+  <div class="heart">💖</div>
+  <h1>Hey Aarya 🥰</h1>
+  <p>You seriously brighten my day more than you know 🌸</p>
+  <p>Would you like to send me some of your cute pics?<br><span style="font-size:0.95rem;color:#777;">Only if you’re comfortable 💗</span></p>
+  <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
+    <button id="yesBtn">Aww, sure 💌</button>
+    <button id="noBtn" style="background:linear-gradient(135deg,#ddd,#bbb);color:#555;box-shadow:0 8px 16px rgba(0,0,0,0.15);">Not right now 😊</button>
+  </div>
+
+  <a id="instaLink" class="hidden" href="https://www.instagram.com/akshat_mauryaaa/" target="_blank" style="margin-top:1rem;text-decoration:none;">
+    <div style="background:linear-gradient(135deg,#fd5949,#d6249f,#285AEB);color:white;padding:0.8rem 1.4rem;border-radius:999px;font-weight:600;">Message Akshat on Instagram 💬</div>
+  </a>
+
+  <a id="whatsLink" class="hidden" href="https://wa.me/917355992476?text=Hey%20Akshat%20😊" target="_blank" style="margin-top:0.6rem;text-decoration:none;">
+    <div style="background:#25D366;color:white;padding:0.7rem 1.3rem;border-radius:999px;font-weight:600;">Message on WhatsApp 💚</div>
+  </a>
+
+  <div id="reply" class="reply hidden">That made my heart really happy 🥹💖<div style="font-size:2rem;">🙈</div><div style="margin-top:0.6rem;font-size:0.95rem;color:#ff7ab8;">You mean so much to me 🌸</div></div>
+  <div id="noReply" class="reply hidden" style="color:#777;">That’s completely okay 😊<br>Thanks for being honest 🌸<br><span style="font-size:0.95rem;color:#888;">You can always change your mind — I’ll wait 💕</span></div>
+</div>
+
+<script>
+// CONFETTI
+const canvas = document.getElementById('confetti');
+const ctx = canvas.getContext('2d');
+function resizeCanvas(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+
+const isMobile = innerWidth < 600;
+const pieces = Array.from({ length: isMobile ? 60 : 120 }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 6 + 4,
+  d: Math.random() * 20,
+  color: `hsl(${Math.random() * 360},100%,60%)`
+}));
+
+function drawConfetti(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  pieces.forEach(p=>{
+    ctx.beginPath(); ctx.fillStyle=p.color;
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+    p.y += Math.cos(p.d)+2; p.x += Math.sin(p.d);
+    if(p.y>canvas.height){ p.y=-10; p.x=Math.random()*canvas.width; }
+  });
+}
+const confettiInterval = setInterval(drawConfetti,20);
+
+// NAVIGATION
+function goNext(){
+  clearInterval(confettiInterval);
+  document.getElementById('intro').style.display='none';
+  document.getElementById('mainCard').style.display='block';
+  canvas.remove();
+}
+
+document.getElementById('enterBtn').addEventListener('click', goNext);
+
+// YES / NO BUTTONS
+const yesBtn = document.getElementById('yesBtn');
+const noBtn = document.getElementById('noBtn');
+
+yesBtn.addEventListener('click', () => {
+  document.getElementById('reply').classList.remove('hidden');
+  document.getElementById('noReply').classList.add('hidden');
+  yesBtn.style.display='none';
+  noBtn.style.display='none';
+  setTimeout(() => {
+    document.getElementById('instaLink').classList.remove('hidden');
+    document.getElementById('whatsLink').classList.remove('hidden');
+  }, 600);
+  for(let i=0;i<18;i++){
+    const h=document.createElement('div');
+    h.className='float-heart'; h.textContent='💗';
+    h.style.left=Math.random()*100+'vw';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),7000);
+  }
+});
+
+noBtn.addEventListener('click', () => {
+  document.getElementById('noReply').classList.remove('hidden');
+  document.getElementById('reply').classList.add('hidden');
+  yesBtn.style.display='none';
+  noBtn.style.display='none';
+});
+</script>
+</body>
+</html>
